@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>À proximité | Les Appartements de Louis</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+.section-title{
+display:flex;
+align-items:center;
+gap:10px;
+margin:22px 0 14px;
+font:600 28px "Cormorant Garamond",serif;
+color:var(--gold);
+}
+
+.location-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+margin-bottom:22px;
+}
+
+.location-card{
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+align-items:center;
+text-align:center;
+text-decoration:none;
+color:#fff;
+min-height:165px;
+padding:16px 12px;
+background:var(--glass);
+backdrop-filter:blur(18px);
+-webkit-backdrop-filter:blur(18px);
+border:1px solid rgba(255,255,255,.15);
+border-radius:16px;
+transition:.20s;
+}
+
+.location-card:active{
+transform:scale(.98);
+}
+
+.location-card i:first-child{
+font-size:30px;
+color:var(--gold);
+margin-bottom:10px;
+}
+
+.location-card h4{
+font:600 20px "Cormorant Garamond",serif;
+line-height:1.15;
+margin-bottom:8px;
+}
+
+.time{
+margin-top:auto;
+font-size:13px;
+opacity:.9;
+}
+
+.maps{
+display:flex;
+align-items:center;
+gap:6px;
+margin-top:8px;
+font-size:13px;
+font-weight:600;
+color:var(--gold);
+}
+
+.maps i{
+font-size:14px;
+color:var(--gold);
+}
+
+</style>
+
+</head>
+
+<body class="inner-page">
+
+<div class="overlay"></div>
+
+<main>
+
+<div class="hero">
+
+<div class="logo">
+
+<h1>
+
+<span class="white">Les Appartements</span><br>
+<span class="gold">de Louis</span>
+
+</h1>
+
+<p>SAINT-RAPHAËL</p>
+
+</div>
+
+<section class="welcome">
+
+<h2>À proximité</h2>
+
+<div class="line"></div>
+
+<p>
+
+Découvrez les principaux lieux et activités autour de l'appartement.
+
+</p>
+
+</section>
+
+<!-- ==========================================================
+     À PIED
+========================================================== -->
+
+<h3 class="section-title">
+
+<i class="fa-solid fa-person-walking"></i>
+
+À pied
+
+</h3>
+
+<div class="location-grid">
+  
+  <a class="location-card"
+href="https://www.google.com/maps/search/?api=1&query=Port+Santa+Lucia+Saint-Raphaël"
+target="_blank">
+
+<i class="fa-solid fa-anchor"></i>
+
+<h4>Port Santa Lucia</h4>
+
+<div class="time">🚶 2 min</div>
+
+<div class="maps">
+<i class="fa-solid fa-map-location-dot"></i>
+Maps
+</div>
+
+</a>
+
+<a class="location-card"
+href="https://www.google.com/maps/search/?api=1&query=Restaurants+Port+Santa+Lucia+Saint-Raphaël"
+target="_blank">
+
+<i class="fa-solid fa-utensils"></i>
+
+<h4>Restaurants</h4>
+
+<div class="time">🚶 2 min</div>
+
+<div class="maps">
+<i class="fa-solid fa-map-location-dot"></i>
+Maps
+</div>
+
+</a>
+
+<a class="location-card"
+href="https://www.google.com/maps/search/?api=1&query=Bars+Port+Santa+Lucia+Saint-Raphaël"
+target="_blank">
+
+<i class="fa-solid fa-martini-glass"></i>
+
+<h4>Bars</h4>
+
+<div class="time">🚶 2 min</div>
+
+<div class="maps">
+<i class="fa-solid fa-map-location-dot"></i>
+Maps
+</div>
+
+</a>
+
+<a class="location-card"
+href="https://www.google.com/maps/search/?api=1&query=Cafés+Port+Santa+Lucia+Saint-Raphaël"
+target="_blank">
+
+<i class="fa-solid fa-mug-hot"></i>
+
+<h4>Cafés</h4>
+
+<div class="time">🚶 2 min</div>
+
+<div class="maps">
+<i class="fa-solid fa-map-location-dot"></i>
+Maps
+</div>
+
+</a>
+
+<a class="location-card"
+href="https://www.google.com/maps/search/?api=1&query=Supérette+Port+Santa+Lucia+Saint-Raphaël"
+target="_blank">
+
+<i class="fa-solid fa-store"></i>
+
+<h4>Supérette</h4>
+
+<div class="time">🚶 2 min</div>
+
+<div class="maps">
+<i class="fa-solid fa-map-location-dot"></i>
+Maps
+</div>
+
+</a>
+
+<a class="location-card"
+href="https://www.google.com/maps/search/?api=1&query=Boulangerie+Port+Santa+Lucia+Saint-Raphaël"
+target="_blank">
+
+<i class="fa-solid fa-bread-slice"></i>
+
+<h4>Boulangerie</h4>
+
+<div class="time">🚶 4 min</div>
+
+<div class="maps">
+<i class="fa-solid fa-map-location-dot"></i>
+Maps
+</div>
+
+</a>
+
+<a class="location-card"
+href="https://www.google.com/maps/search/?api=1&query=Plage+Santa+Lucia+Saint-Raphaël"
+target="_blank">
+
+<i class="fa-solid fa-umbrella-beach"></i>
+
+<h4>Plage</h4>
+
+<div class="time">🚶 4 min</div>
+
+<div class="maps">
+<i class="fa-solid fa-map-location-dot"></i>
+Maps
+</div>
+
+</a>
+
+<a class="location-card"
+href="https://www.google.com/maps/search/?api=1&query=Glacier+Port+Santa+Lucia+Saint-Raphaël"
+target="_blank">
+
+<i class="fa-solid fa-ice-cream"></i>
+
+<h4>Glacier</h4>
+
+<div class="time">🚶 4 min</div>
+
+<div class="maps">
+<i class="fa-solid fa-map-location-dot"></i>
+Maps
+</div>
+
+</a>
+
+<a class="location-card"
+href="https://www.google.com/maps/search/?api=1&query=Pharmacie+Port+Santa+Lucia+Saint-Raphaël"
+target="_blank">
+
+<i class="fa-solid fa-prescription-bottle-medical"></i>
+
+<h4>Pharmacie</h4>
+
+<div class="time">🚶 6 min</div>
+
+<div class="maps">
+<i class="fa-solid fa-map-location-dot"></i>
+Maps
+</div>
+
+</a>
+
+<a class="location-card"
+href="https://www.google.com/maps/search/?api=1&query=Embarcadère+Bateaux+Saint-Tropez+Saint-Raphaël"
+target="_blank">
+
+<i class="fa-solid fa-ship"></i>
+
+<h4>Bateaux<br>Saint-Tropez</h4>
+
+<div class="time">🚶 15 min</div>
+
+<div class="maps">
+<i class="fa-solid fa-map-location-dot"></i>
+Maps
+</div>
+
+</a>
+
+<a class="location-card"
+href="https://www.google.com/maps/search/?api=1&query=Casino+Barrière+Saint-Raphaël"
+target="_blank">
+
+<i class="fa-solid fa-dice"></i>
+
+<h4>Casino</h4>
+
+<div class="time">🚶 20 min</div>
+
+<div class="maps">
+<i class="fa-solid fa-map-location-dot"></i>
+Maps
+</div>
+
+</a>
+
+<a class="location-card"
+href="https://www.google.com/maps/search/?api=1&query=Gare+SNCF+Saint-Raphaël"
+target="_blank">
+
+<i class="fa-solid fa-train"></i>
+
+<h4>Gare SNCF</h4>
+
+<div class="time">🚶 20 min</div>
+
+<div class="maps">
+<i class="fa-solid fa-map-location-dot"></i>
+Maps
+</div>
+
+</a>
+
+<a class="location-card"
+href="https://www.google.com/maps/search/?api=1&query=Centre-ville+Saint-Raphaël"
+target="_blank">
+
+<i class="fa-solid fa-city"></i>
+
+<h4>Centre-ville</h4>
+
+<div class="time">🚶 20 min</div>
+
+<div class="maps">
+<i class="fa-solid fa-map-location-dot"></i>
+Maps
+</div>
+
+</a>
+
+</div>
+
+<!-- ==========================================================
+     EN VOITURE
+========================================================== -->
+
+<h3 class="section-title">
+
+<i class="fa-solid fa-car-side"></i>
+
+En voiture
+
+</h3>
+
+<div class="location-grid">
+  
+  <a class="location-card"
+href="https://www.google.com/maps/search/?api=1&query=50+Avenue+Commandant+Camille+Suzanne+83700+Saint-Raphaël"
+target="_blank">
+
+<i class="fa-solid fa-gas-pump"></i>
+
+<h4>Hypermarché<br>+ Station</h4>
+
+<div class="time">
+
+🚗 5 min
+
+</div>
+
+<div class="maps">
+
+<i class="fa-solid fa-map-location-dot"></i>
+
+Maps
+
+</div>
+
+</a>
+
+<a class="location-card"
+href="https://www.google.com/maps/search/?api=1&query=Aqualand+Fréjus"
+target="_blank">
+
+<i class="fa-solid fa-water-ladder"></i>
+
+<h4>Aqualand</h4>
+
+<div class="time">
+
+🚗 15 min
+
+</div>
+
+<div class="maps">
+
+<i class="fa-solid fa-map-location-dot"></i>
+
+Maps
+
+</div>
+
+</a>
+
+<a class="location-card"
+href="https://www.google.com/maps/search/?api=1&query=Luna+Park+Fréjus"
+target="_blank">
+
+<i class="fa-solid fa-ferris-wheel"></i>
+
+<h4>Luna Park</h4>
+
+<div class="time">
+
+🚗 10 min
+
+</div>
+
+<div class="maps">
+
+<i class="fa-solid fa-map-location-dot"></i>
+
+Maps
+
+</div>
+
+</a>
+
+<a class="location-card"
+href="https://www.google.com/maps/search/?api=1&query=Massif+de+l'Estérel"
+target="_blank">
+
+<i class="fa-solid fa-mountain-sun"></i>
+
+<h4>Massif de l'Estérel</h4>
+
+<div class="time">
+
+🚗 15 min
+
+</div>
+
+<div class="maps">
+
+<i class="fa-solid fa-map-location-dot"></i>
+
+Maps
+
+</div>
+
+</a>
+
+<a class="location-card"
+href="https://www.google.com/maps/search/?api=1&query=Centre+Hospitalier+Intercommunal+Fréjus+Saint-Raphaël"
+target="_blank">
+
+<i class="fa-solid fa-hospital"></i>
+
+<h4>Hôpital</h4>
+
+<div class="time">
+
+🚗 15 min
+
+</div>
+
+<div class="maps">
+
+<i class="fa-solid fa-map-location-dot"></i>
+
+Maps
+
+</div>
+
+</a>
+
+</div>
+
+<!-- ==========================================================
+     AUX ALENTOURS
+========================================================== -->
+
+<h3 class="section-title">
+
+<i class="fa-solid fa-earth-europe"></i>
+
+Aux alentours
+
+</h3>
+
+<div class="location-grid">
+
+<a class="location-card"
+href="https://www.google.com/maps/search/?api=1&query=Sainte-Maxime"
+target="_blank">
+
+<i class="fa-solid fa-umbrella-beach"></i>
+
+<h4>Sainte-Maxime</h4>
+
+<div class="time">
+
+🚗 30 min
+
+</div>
+
+<div class="maps">
+
+<i class="fa-solid fa-map-location-dot"></i>
+
+Maps
+
+</div>
+
+</a>
+
+<a class="location-card"
+href="https://www.google.com/maps/search/?api=1&query=Saint-Tropez"
+target="_blank">
+
+<i class="fa-solid fa-anchor"></i>
+
+<h4>Saint-Tropez</h4>
+
+<div class="time">
+
+🚗 50 min
+
+</div>
+
+<div class="maps">
+
+<i class="fa-solid fa-map-location-dot"></i>
+
+Maps
+
+</div>
+
+</a>
+
+<a class="location-card"
+href="https://www.google.com/maps/search/?api=1&query=Cannes"
+target="_blank">
+
+<i class="fa-solid fa-film"></i>
+
+<h4>Cannes</h4>
+
+<div class="time">
+
+🚗 45 min
+
+</div>
+
+<div class="maps">
+
+<i class="fa-solid fa-map-location-dot"></i>
+
+Maps
+
+</div>
+
+</a>
+
+<a class="location-card"
+href="https://www.google.com/maps/search/?api=1&query=Monaco"
+target="_blank">
+
+<i class="fa-solid fa-building-columns"></i>
+
+<h4>Monaco</h4>
+
+<div class="time">
+
+🚗 1 h 15
+
+</div>
+
+<div class="maps">
+
+<i class="fa-solid fa-map-location-dot"></i>
+
+Maps
+
+</div>
+
+</a>
+
+<a class="location-card"
+href="https://www.google.com/maps/search/?api=1&query=Grasse"
+target="_blank">
+
+<i class="fa-solid fa-seedling"></i>
+
+<h4>Grasse</h4>
+
+<div class="time">
+
+🚗 1 h
+
+</div>
+
+<div class="maps">
+
+<i class="fa-solid fa-map-location-dot"></i>
+
+Maps
+
+</div>
+
+</a>
+
+<a class="location-card"
+href="https://www.google.com/maps/search/?api=1&query=Vintimille+Italie"
+target="_blank">
+
+<i class="fa-solid fa-flag"></i>
+
+<h4>Italie</h4>
+
+<div class="time">
+
+🚗 1 h 30
+
+</div>
+
+<div class="maps">
+
+<i class="fa-solid fa-map-location-dot"></i>
+
+Maps
+
+</div>
+
+</a>
+
+</div>
+
+<!-- ==========================================================
+     NAVIGATION
+========================================================== -->
+
+<div class="mini-navigation">
+
+<a class="mini-nav" href="index.html">
+<i class="fa-solid fa-house"></i>
+<span>Accueil</span>
+</a>
+
+<a class="mini-nav" href="arrivee.html">
+<i class="fa-solid fa-key"></i>
+<span>Arrivée</span>
+</a>
+
+<a class="mini-nav" href="guide.html">
+<i class="fa-solid fa-book-open"></i>
+<span>Guide</span>
+</a>
+
+<a class="mini-nav" href="proximite.html">
+<i class="fa-solid fa-location-dot"></i>
+<span>À proximité</span>
+</a>
+
+<a class="mini-nav" href="depart.html">
+<i class="fa-solid fa-right-from-bracket"></i>
+<span>Départ</span>
+</a>
+
+<a class="mini-nav" href="assistance.html">
+<i class="fa-regular fa-comment-dots"></i>
+<span>Assistance</span>
+</a>
+
+</div>
+
+<footer>
+
+<h5>
+
+LES APPARTEMENTS DE LOUIS
+
+</h5>
+
+<p>
+
+Nous vous souhaitons un excellent séjour à Saint-Raphaël.
+
+</p>
+
+</footer>
+
+</div>
+
+</main>
+
+<script>
+
+document.querySelectorAll(".location-card").forEach(card=>{
+
+card.addEventListener("touchstart",()=>{
+
+card.style.transform="scale(.98)";
+
+});
+
+card.addEventListener("touchend",()=>{
+
+setTimeout(()=>{
+
+card.style.transform="scale(1)";
+
+},120);
+
+});
+
+});
+
+</script>
+
+</body>
+
+</html>
