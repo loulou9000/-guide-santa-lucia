@@ -4,91 +4,179 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>À proximité | Les Appartements de Louis</title>
 
 <link rel="stylesheet" href="style.css">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <style>
 
-.section-title{
-display:flex;
-align-items:center;
-gap:10px;
-margin:22px 0 14px;
-font:600 28px "Cormorant Garamond",serif;
-color:var(--gold);
-}
-
-.location-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
-margin-bottom:22px;
-}
-
-.location-card{
-display:flex;
-flex-direction:column;
-justify-content:space-between;
-align-items:center;
-text-align:center;
-text-decoration:none;
-color:#fff;
-min-height:165px;
-padding:16px 12px;
+.map-section{
+margin-top:20px;
 background:var(--glass);
 backdrop-filter:blur(18px);
 -webkit-backdrop-filter:blur(18px);
 border:1px solid rgba(255,255,255,.15);
-border-radius:16px;
-transition:.20s;
+border-radius:18px;
+overflow:hidden;
 }
 
-.location-card:active{
-transform:scale(.98);
+.map-header{
+padding:18px;
+text-align:center;
 }
 
-.location-card i:first-child{
-font-size:30px;
+.map-header h3{
+font:600 28px "Cormorant Garamond",serif;
 color:var(--gold);
-margin-bottom:10px;
+margin-bottom:6px;
 }
 
-.location-card h4{
-font:600 20px "Cormorant Garamond",serif;
-line-height:1.15;
-margin-bottom:8px;
-}
-
-.time{
-margin-top:auto;
-font-size:13px;
-opacity:.9;
-}
-
-.maps{
-display:flex;
-align-items:center;
-gap:6px;
-margin-top:8px;
-font-size:13px;
-font-weight:600;
-color:var(--gold);
-}
-
-.maps i{
+.map-header p{
 font-size:14px;
-color:var(--gold);
+opacity:.9;
+line-height:1.45;
+}
+
+.map{
+height:230px;
+width:100%;
+}
+
+.location-list{
+padding:12px 16px;
+}
+
+.location{
+
+display:flex;
+align-items:flex-start;
+gap:12px;
+
+padding:11px 0;
+
+border-bottom:1px solid rgba(255,255,255,.08);
+
+cursor:pointer;
+
+transition:.20s;
+
+}
+
+.location:last-child{
+
+border:none;
+
+}
+
+.location:hover{
+
+transform:translateX(4px);
+
+}
+
+.badge{
+
+width:28px;
+height:28px;
+
+border-radius:50%;
+
+background:linear-gradient(#efc980,#ddb26b);
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+font-size:14px;
+font-weight:700;
+
+color:#222;
+
+flex-shrink:0;
+
+}
+
+.location strong{
+
+display:block;
+
+font-size:15px;
+
+}
+
+.location span{
+
+font-size:13px;
+
+opacity:.82;
+
+}
+
+.home-marker {
+  
+  width: 50px;
+  height: 50px;
+  
+  border-radius: 50%;
+  
+  background: linear-gradient(#efc980, #ddb26b);
+  
+  border: 3px solid white;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  font-size: 28px;
+  
+  box-shadow: 0 5px 14px rgba(0, 0, 0, .40);
+  
+}
+
+
+
+.number-marker{
+
+width:30px;
+height:30px;
+
+border-radius:50%;
+
+background:#ddb26b;
+
+border:2px solid white;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-weight:700;
+
+color:#222;
+
+box-shadow:0 2px 10px rgba(0,0,0,.35);
+
+}
+
+.leaflet-popup-content{
+
+text-align:center;
+
+font-family:Inter,sans-serif;
+
 }
 
 </style>
@@ -108,6 +196,7 @@ color:var(--gold);
 <h1>
 
 <span class="white">Les Appartements</span><br>
+
 <span class="gold">de Louis</span>
 
 </h1>
@@ -124,577 +213,339 @@ color:var(--gold);
 
 <p>
 
-Découvrez les principaux lieux et activités autour de l'appartement.
+Retrouvez facilement tous les lieux utiles autour de l'appartement.
 
 </p>
 
 </section>
 
-<!-- ==========================================================
-     À PIED
-========================================================== -->
+<section class="map-section">
 
-<h3 class="section-title">
+<div class="map-header">
 
-<i class="fa-solid fa-person-walking"></i>
+<h3>🚶 À pied</h3>
 
-À pied
+<p>
 
-</h3>
+Tous les commerces accessibles à pied.
 
-<div class="location-grid">
+</p>
+
+</div>
+
+<div id="map1" class="map"></div>
+
+<div class="location-list" id="listePied">
   
-  <a class="location-card"
-href="https://www.google.com/maps/search/?api=1&query=Port+Santa+Lucia+Saint-Raphaël"
-target="_blank">
-
-<i class="fa-solid fa-anchor"></i>
-
-<h4>Port Santa Lucia</h4>
-
-<div class="time">🚶 2 min</div>
-
-<div class="maps">
-<i class="fa-solid fa-map-location-dot"></i>
-Maps
+  <div class="location" onclick="focusMarker(1,0)">
+    <div class="badge">🏠</div>
+    <div>
+        <strong>Les Appartements de Louis</strong>
+        <span>55 Route de la Corniche</span>
+    </div>
 </div>
 
-</a>
-
-<a class="location-card"
-href="https://www.google.com/maps/search/?api=1&query=Restaurants+Port+Santa+Lucia+Saint-Raphaël"
-target="_blank">
-
-<i class="fa-solid fa-utensils"></i>
-
-<h4>Restaurants</h4>
-
-<div class="time">🚶 2 min</div>
-
-<div class="maps">
-<i class="fa-solid fa-map-location-dot"></i>
-Maps
+<div class="location" onclick="focusMarker(1,1)">
+    <div class="badge">1</div>
+    <div>
+        <strong>Port Santa Lucia</strong>
+        <span>2 min à pied</span>
+    </div>
 </div>
 
-</a>
-
-<a class="location-card"
-href="https://www.google.com/maps/search/?api=1&query=Bars+Port+Santa+Lucia+Saint-Raphaël"
-target="_blank">
-
-<i class="fa-solid fa-martini-glass"></i>
-
-<h4>Bars</h4>
-
-<div class="time">🚶 2 min</div>
-
-<div class="maps">
-<i class="fa-solid fa-map-location-dot"></i>
-Maps
+<div class="location" onclick="focusMarker(1,2)">
+    <div class="badge">2</div>
+    <div>
+        <strong>Restaurants</strong>
+        <span>4 min à pied</span>
+    </div>
 </div>
 
-</a>
-
-<a class="location-card"
-href="https://www.google.com/maps/search/?api=1&query=Cafés+Port+Santa+Lucia+Saint-Raphaël"
-target="_blank">
-
-<i class="fa-solid fa-mug-hot"></i>
-
-<h4>Cafés</h4>
-
-<div class="time">🚶 2 min</div>
-
-<div class="maps">
-<i class="fa-solid fa-map-location-dot"></i>
-Maps
+<div class="location" onclick="focusMarker(1,3)">
+    <div class="badge">3</div>
+    <div>
+        <strong>Bars & Cafés</strong>
+        <span>4 min à pied</span>
+    </div>
 </div>
 
-</a>
-
-<a class="location-card"
-href="https://www.google.com/maps/search/?api=1&query=Supérette+Port+Santa+Lucia+Saint-Raphaël"
-target="_blank">
-
-<i class="fa-solid fa-store"></i>
-
-<h4>Supérette</h4>
-
-<div class="time">🚶 2 min</div>
-
-<div class="maps">
-<i class="fa-solid fa-map-location-dot"></i>
-Maps
+<div class="location" onclick="focusMarker(1,4)">
+    <div class="badge">4</div>
+    <div>
+        <strong>Supérette</strong>
+        <span>7 min à pied</span>
+    </div>
 </div>
 
-</a>
-
-<a class="location-card"
-href="https://www.google.com/maps/search/?api=1&query=Boulangerie+Port+Santa+Lucia+Saint-Raphaël"
-target="_blank">
-
-<i class="fa-solid fa-bread-slice"></i>
-
-<h4>Boulangerie</h4>
-
-<div class="time">🚶 4 min</div>
-
-<div class="maps">
-<i class="fa-solid fa-map-location-dot"></i>
-Maps
+<div class="location" onclick="focusMarker(1,5)">
+    <div class="badge">5</div>
+    <div>
+        <strong>Boulangerie</strong>
+        <span>6 min à pied</span>
+    </div>
 </div>
 
-</a>
-
-<a class="location-card"
-href="https://www.google.com/maps/search/?api=1&query=Plage+Santa+Lucia+Saint-Raphaël"
-target="_blank">
-
-<i class="fa-solid fa-umbrella-beach"></i>
-
-<h4>Plage</h4>
-
-<div class="time">🚶 4 min</div>
-
-<div class="maps">
-<i class="fa-solid fa-map-location-dot"></i>
-Maps
+<div class="location" onclick="focusMarker(1,6)">
+    <div class="badge">6</div>
+    <div>
+        <strong>Plage</strong>
+        <span>8 min à pied</span>
+    </div>
 </div>
 
-</a>
-
-<a class="location-card"
-href="https://www.google.com/maps/search/?api=1&query=Glacier+Port+Santa+Lucia+Saint-Raphaël"
-target="_blank">
-
-<i class="fa-solid fa-ice-cream"></i>
-
-<h4>Glacier</h4>
-
-<div class="time">🚶 4 min</div>
-
-<div class="maps">
-<i class="fa-solid fa-map-location-dot"></i>
-Maps
+<div class="location" onclick="focusMarker(1,7)">
+    <div class="badge">7</div>
+    <div>
+        <strong>Pharmacie</strong>
+        <span>11 min à pied</span>
+    </div>
 </div>
 
-</a>
-
-<a class="location-card"
-href="https://www.google.com/maps/search/?api=1&query=Pharmacie+Port+Santa+Lucia+Saint-Raphaël"
-target="_blank">
-
-<i class="fa-solid fa-prescription-bottle-medical"></i>
-
-<h4>Pharmacie</h4>
-
-<div class="time">🚶 6 min</div>
-
-<div class="maps">
-<i class="fa-solid fa-map-location-dot"></i>
-Maps
+<div class="location" onclick="focusMarker(1,8)">
+    <div class="badge">8</div>
+    <div>
+        <strong>Navettes Saint-Tropez</strong>
+        <span>26 min à pied</span>
+    </div>
 </div>
 
-</a>
-
-<a class="location-card"
-href="https://www.google.com/maps/search/?api=1&query=Embarcadère+Bateaux+Saint-Tropez+Saint-Raphaël"
-target="_blank">
-
-<i class="fa-solid fa-ship"></i>
-
-<h4>Bateaux<br>Saint-Tropez</h4>
-
-<div class="time">🚶 15 min</div>
-
-<div class="maps">
-<i class="fa-solid fa-map-location-dot"></i>
-Maps
+<div class="location" onclick="focusMarker(1,9)">
+  <div class="badge">9</div>
+  <div>
+    <strong>Gare SNCF Boulouris</strong>
+    <span>35 min à pied</span>
+  </div>
 </div>
 
-</a>
-
-<a class="location-card"
-href="https://www.google.com/maps/search/?api=1&query=Casino+Barrière+Saint-Raphaël"
-target="_blank">
-
-<i class="fa-solid fa-dice"></i>
-
-<h4>Casino</h4>
-
-<div class="time">🚶 20 min</div>
-
-<div class="maps">
-<i class="fa-solid fa-map-location-dot"></i>
-Maps
+<div class="location" onclick="focusMarker(1,10)">
+  <div class="badge">10</div>
+  <div>
+    <strong>Gare SNCF Saint-Raphaël Valescure</strong>
+    <span>26 min à pied</span>
+  </div>
 </div>
 
-</a>
-
-<a class="location-card"
-href="https://www.google.com/maps/search/?api=1&query=Gare+SNCF+Saint-Raphaël"
-target="_blank">
-
-<i class="fa-solid fa-train"></i>
-
-<h4>Gare SNCF</h4>
-
-<div class="time">🚶 20 min</div>
-
-<div class="maps">
-<i class="fa-solid fa-map-location-dot"></i>
-Maps
+<div class="location" onclick="focusMarker(1,11)">
+  <div class="badge">11</div>
+  <div>
+    <strong>Casino Barrière</strong>
+    <span>24 min à pied</span>
+  </div>
 </div>
 
-</a>
-
-<a class="location-card"
-href="https://www.google.com/maps/search/?api=1&query=Centre-ville+Saint-Raphaël"
-target="_blank">
-
-<i class="fa-solid fa-city"></i>
-
-<h4>Centre-ville</h4>
-
-<div class="time">🚶 20 min</div>
-
-<div class="maps">
-<i class="fa-solid fa-map-location-dot"></i>
-Maps
-</div>
-
-</a>
 
 </div>
 
-<!-- ==========================================================
-     EN VOITURE
-========================================================== -->
-
-<h3 class="section-title">
-
-<i class="fa-solid fa-car-side"></i>
-
-En voiture
-
-</h3>
-
-<div class="location-grid">
-  
-  <a class="location-card"
-href="https://www.google.com/maps/search/?api=1&query=50+Avenue+Commandant+Camille+Suzanne+83700+Saint-Raphaël"
-target="_blank">
-
-<i class="fa-solid fa-gas-pump"></i>
-
-<h4>Hypermarché<br>+ Station</h4>
-
-<div class="time">
-
-🚗 5 min
-
-</div>
-
-<div class="maps">
+<a class="button"
+target="_blank"
+href="https://maps.google.com/?q=55+Route+de+la+Corniche+83700+Saint-Raphaël">
 
 <i class="fa-solid fa-map-location-dot"></i>
 
-Maps
-
-</div>
+Ouvrir Google Maps
 
 </a>
 
-<a class="location-card"
-href="https://www.google.com/maps/search/?api=1&query=Aqualand+Fréjus"
-target="_blank">
+</section>
 
-<i class="fa-solid fa-water-ladder"></i>
+<section class="map-section">
 
-<h4>Aqualand</h4>
+<div class="map-header">
 
-<div class="time">
+<h3>🚗 Saint-Raphaël</h3>
 
-🚗 15 min
+<p>
+
+Les principaux lieux accessibles en voiture.
+
+</p>
 
 </div>
 
-<div class="maps">
+<div id="map2" class="map"></div>
+
+<div class="location-list" id="listeVille">
+
+<div class="location" onclick="focusMarker(2,0)">
+<div class="badge">🏠</div>
+<div>
+<strong>Les Appartements de Louis</strong>
+<span>Point de départ</span>
+</div>
+</div>
+
+
+
+<div class="location" onclick="focusMarker(2,4)">
+<div class="badge">1</div>
+<div>
+<strong>Base Nature François Léotard</strong>
+<span>17 min</span>
+</div>
+</div>
+
+<div class="location" onclick="focusMarker(2,5)">
+<div class="badge">2</div>
+<div>
+<strong>Luna Park</strong>
+<span>18 min (été)</span>
+</div>
+</div>
+
+<div class="location" onclick="focusMarker(2,6)">
+<div class="badge">3</div>
+<div>
+<strong>Aqualand</strong>
+<span>18 min</span>
+</div>
+</div>
+
+<div class="location" onclick="focusMarker(2,7)">
+<div class="badge">4</div>
+<div>
+<strong>Massif de l'Estérel</strong>
+<span>40 min</span>
+</div>
+</div>
+
+<div class="location" onclick="focusMarker(2,8)">
+<div class="badge">5</div>
+<div>
+<strong>Hypermarché + Station</strong>
+<span>9 min</span>
+</div>
+</div>
+
+</div>
+
+<a class="button"
+target="_blank"
+href="https://maps.google.com/?q=Saint-Raphaël">
 
 <i class="fa-solid fa-map-location-dot"></i>
 
-Maps
-
-</div>
+Ouvrir Google Maps
 
 </a>
 
-<a class="location-card"
-href="https://www.google.com/maps/search/?api=1&query=Luna+Park+Fréjus"
-target="_blank">
+</section>
 
-<i class="fa-solid fa-ferris-wheel"></i>
+<section class="map-section">
 
-<h4>Luna Park</h4>
+<div class="map-header">
 
-<div class="time">
+<h3>🌴 Découvrir la région</h3>
 
-🚗 10 min
+<p>
+
+Quelques destinations incontournables autour de Saint-Raphaël.
+
+</p>
 
 </div>
 
-<div class="maps">
+<div id="map3" class="map"></div>
+
+<div class="location-list">
+
+<div class="location" onclick="focusMarker(3,0)">
+<div class="badge">🏠</div>
+<div>
+<strong>Les Appartements de Louis</strong>
+<span>Point de départ</span>
+</div>
+</div>
+
+<div class="location" onclick="focusMarker(3,1)">
+<div class="badge">1</div>
+<div>
+<strong>Sainte-Maxime</strong>
+<span>50 min</span>
+</div>
+</div>
+
+<div class="location" onclick="focusMarker(3,2)">
+<div class="badge">2</div>
+<div>
+<strong>Saint-Tropez</strong>
+<span>55 min</span>
+</div>
+</div>
+
+<div class="location" onclick="focusMarker(3,3)">
+<div class="badge">3</div>
+<div>
+<strong>Cannes</strong>
+<span>60 min</span>
+</div>
+</div>
+
+<div class="location" onclick="focusMarker(3,4)">
+<div class="badge">4</div>
+<div>
+<strong>Grasse</strong>
+<span>50 min</span>
+</div>
+</div>
+
+<div class="location" onclick="focusMarker(3,5)">
+<div class="badge">5</div>
+<div>
+<strong>Monaco</strong>
+<span>70 min</span>
+</div>
+</div>
+
+<div class="location" onclick="focusMarker(3,6)">
+<div class="badge">6</div>
+<div>
+<strong>Vintimille (Italie)</strong>
+<span>85 min</span>
+</div>
+</div>
+
+</div>
+
+<a class="button"
+target="_blank"
+href="https://maps.google.com/?q=Côte+d'Azur">
 
 <i class="fa-solid fa-map-location-dot"></i>
 
-Maps
-
-</div>
+Explorer la région
 
 </a>
 
-<a class="location-card"
-href="https://www.google.com/maps/search/?api=1&query=Massif+de+l'Estérel"
-target="_blank">
-
-<i class="fa-solid fa-mountain-sun"></i>
-
-<h4>Massif de l'Estérel</h4>
-
-<div class="time">
-
-🚗 15 min
-
-</div>
-
-<div class="maps">
-
-<i class="fa-solid fa-map-location-dot"></i>
-
-Maps
-
-</div>
-
-</a>
-
-<a class="location-card"
-href="https://www.google.com/maps/search/?api=1&query=Centre+Hospitalier+Intercommunal+Fréjus+Saint-Raphaël"
-target="_blank">
-
-<i class="fa-solid fa-hospital"></i>
-
-<h4>Hôpital</h4>
-
-<div class="time">
-
-🚗 15 min
-
-</div>
-
-<div class="maps">
-
-<i class="fa-solid fa-map-location-dot"></i>
-
-Maps
-
-</div>
-
-</a>
-
-</div>
-
-<!-- ==========================================================
-     AUX ALENTOURS
-========================================================== -->
-
-<h3 class="section-title">
-
-<i class="fa-solid fa-earth-europe"></i>
-
-Aux alentours
-
-</h3>
-
-<div class="location-grid">
-
-<a class="location-card"
-href="https://www.google.com/maps/search/?api=1&query=Sainte-Maxime"
-target="_blank">
-
-<i class="fa-solid fa-umbrella-beach"></i>
-
-<h4>Sainte-Maxime</h4>
-
-<div class="time">
-
-🚗 30 min
-
-</div>
-
-<div class="maps">
-
-<i class="fa-solid fa-map-location-dot"></i>
-
-Maps
-
-</div>
-
-</a>
-
-<a class="location-card"
-href="https://www.google.com/maps/search/?api=1&query=Saint-Tropez"
-target="_blank">
-
-<i class="fa-solid fa-anchor"></i>
-
-<h4>Saint-Tropez</h4>
-
-<div class="time">
-
-🚗 50 min
-
-</div>
-
-<div class="maps">
-
-<i class="fa-solid fa-map-location-dot"></i>
-
-Maps
-
-</div>
-
-</a>
-
-<a class="location-card"
-href="https://www.google.com/maps/search/?api=1&query=Cannes"
-target="_blank">
-
-<i class="fa-solid fa-film"></i>
-
-<h4>Cannes</h4>
-
-<div class="time">
-
-🚗 45 min
-
-</div>
-
-<div class="maps">
-
-<i class="fa-solid fa-map-location-dot"></i>
-
-Maps
-
-</div>
-
-</a>
-
-<a class="location-card"
-href="https://www.google.com/maps/search/?api=1&query=Monaco"
-target="_blank">
-
-<i class="fa-solid fa-building-columns"></i>
-
-<h4>Monaco</h4>
-
-<div class="time">
-
-🚗 1 h 15
-
-</div>
-
-<div class="maps">
-
-<i class="fa-solid fa-map-location-dot"></i>
-
-Maps
-
-</div>
-
-</a>
-
-<a class="location-card"
-href="https://www.google.com/maps/search/?api=1&query=Grasse"
-target="_blank">
-
-<i class="fa-solid fa-seedling"></i>
-
-<h4>Grasse</h4>
-
-<div class="time">
-
-🚗 1 h
-
-</div>
-
-<div class="maps">
-
-<i class="fa-solid fa-map-location-dot"></i>
-
-Maps
-
-</div>
-
-</a>
-
-<a class="location-card"
-href="https://www.google.com/maps/search/?api=1&query=Vintimille+Italie"
-target="_blank">
-
-<i class="fa-solid fa-flag"></i>
-
-<h4>Italie</h4>
-
-<div class="time">
-
-🚗 1 h 30
-
-</div>
-
-<div class="maps">
-
-<i class="fa-solid fa-map-location-dot"></i>
-
-Maps
-
-</div>
-
-</a>
-
-</div>
-
-<!-- ==========================================================
-     NAVIGATION
-========================================================== -->
+</section>
 
 <div class="mini-navigation">
 
-<a class="mini-nav" href="index.html">
+<a href="index.html" class="mini-nav">
 <i class="fa-solid fa-house"></i>
 <span>Accueil</span>
 </a>
 
-<a class="mini-nav" href="arrivee.html">
+<a href="arrivee.html" class="mini-nav">
 <i class="fa-solid fa-key"></i>
 <span>Arrivée</span>
 </a>
 
-<a class="mini-nav" href="guide.html">
-<i class="fa-solid fa-book-open"></i>
-<span>Guide</span>
+<a href="infos.html" class="mini-nav">
+<i class="fa-solid fa-circle-info"></i>
+<span>Infos</span>
 </a>
 
-<a class="mini-nav" href="proximite.html">
+<a href="proximite.html" class="mini-nav">
 <i class="fa-solid fa-location-dot"></i>
 <span>À proximité</span>
 </a>
 
-<a class="mini-nav" href="depart.html">
+<a href="depart.html" class="mini-nav">
 <i class="fa-solid fa-right-from-bracket"></i>
 <span>Départ</span>
 </a>
 
-<a class="mini-nav" href="assistance.html">
+<a href="assistance.html" class="mini-nav">
 <i class="fa-regular fa-comment-dots"></i>
 <span>Assistance</span>
 </a>
@@ -703,17 +554,9 @@ Maps
 
 <footer>
 
-<h5>
+<h5>LES APPARTEMENTS DE LOUIS</h5>
 
-LES APPARTEMENTS DE LOUIS
-
-</h5>
-
-<p>
-
-Nous vous souhaitons un excellent séjour à Saint-Raphaël.
-
-</p>
+<p>Nous vous souhaitons un excellent séjour à Saint-Raphaël.</p>
 
 </footer>
 
@@ -723,23 +566,309 @@ Nous vous souhaitons un excellent séjour à Saint-Raphaël.
 
 <script>
 
-document.querySelectorAll(".location-card").forEach(card=>{
+const maps=[];
+const markers=[[],[],[]];
 
-card.addEventListener("touchstart",()=>{
+const appartement = [43.41307, 6.78370];
 
-card.style.transform="scale(.98)";
+const lieuxPied = [
+  { n: 1, nom: "Port Santa Lucia", gps: [43.41230, 6.78270] },
+  { n: 2, nom: "Restaurants", gps: [43.41317, 6.78051] },
+  { n: 3, nom: "Bars & Cafés", gps: [43.41365, 6.78005] },
+  { n: 4, nom: "Supérette", gps: [43.41450, 6.77928] },
+  { n: 5, nom: "Boulangerie", gps: [43.41446, 6.77961] },
+  { n: 6, nom: "Plage", gps: [43.40978, 6.78710] },
+  { n: 7, nom: "Pharmacie", gps: [43.41635, 6.77661] },
+  { n: 8, nom: "Navettes Saint-Tropez", gps: [43.42257, 6.76567] },
+
+{ n: 9, nom: "Gare SNCF Boulouris", gps: [43.41640, 6.80876] },
+{ n: 10, nom: "Gare SNCF Saint-Raphaël Valescure", gps: [43.42344, 6.76877] },
+
+{ n: 11, nom: "Casino Barrière", gps: [43.42196, 6.76644] }
+];
+
+const lieuxVille = [
+  { n: 1, nom: "Base Nature", gps: [43.41806, 6.74295] },
+  { n: 2, nom: "Luna Park", gps: [43.41966, 6.72809] },
+  { n: 3, nom: "Aqualand", gps: [43.41689, 6.72678] },
+  { n: 4, nom: "Massif de l'Estérel", gps: [43.50163, 6.79407] },
+  { n: 5, nom: "Hypermarché + Station", gps: [43.43217, 6.80645] }
+];
+
+const lieuxRegion = [
+  { n: 1, nom: "Sainte-Maxime", gps: [43.30785, 6.64017] },
+  { n: 2, nom: "Saint-Tropez", gps: [43.26863, 6.63300] },
+  { n: 3, nom: "Cannes", gps: [43.55364, 7.02039] },
+  { n: 4, nom: "Grasse", gps: [43.65767, 6.92403] },
+  { n: 5, nom: "Monaco", gps: [43.73498, 7.41569] },
+  { n: 6, nom: "Vintimille", gps: [43.78928, 7.61189] }
+];
+
+maps[0] = L.map("map1", { zoomControl: false }).setView([43.4175, 6.7865], 14);
+
+maps[1] = L.map("map2", { zoomControl: false }).setView([43.4250, 6.7680], 11);
+
+maps[2] = L.map("map3", { zoomControl: false }).setView([43.5150, 6.9800], 8);
+
+maps.forEach(map => {
+  
+  L.tileLayer(
+    
+    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    
+    {
+      
+      maxZoom: 19,
+      attribution: "© OpenStreetMap"
+      
+    }
+    
+  ).addTo(map);
+  
+});
+
+function homeIcon() {
+  
+  return L.divIcon({
+    
+    className: "",
+    
+    html: '<div class="home-marker">🏠</div>',
+    
+    iconSize: [50, 50],
+    iconAnchor: [25, 25]
+    
+  });
+  
+}
+
+function numberIcon(n) {
+  
+  return L.divIcon({
+    
+    className: "",
+    
+    html: `<div class="number-marker">${n}</div>`,
+    
+    iconSize: [30, 30],
+    iconAnchor: [15, 15]
+    
+  });
+  
+}
+
+function ajouterAppartement(index) {
+  
+  const marker = L.marker(
+      
+      appartement,
+      
+      {
+        
+        icon: homeIcon()
+        
+      }
+      
+    )
+    
+    .addTo(maps[index])
+    
+    .bindPopup(`
+
+<b>🏠 Les Appartements de Louis</b><br>
+
+55 Route de la Corniche<br><br>
+
+<a class="maps-button"
+
+target="_blank"
+
+href="https://maps.google.com/?q=55+Route+de+la+Corniche+83700+Saint-Raphaël">
+
+Itinéraire Google Maps
+
+</a>
+
+`);
+  
+  markers[index][0] = marker;
+  
+}
+
+function ajouterLieux(index, tableau) {
+  
+  tableau.forEach(lieu => {
+    
+    const marker = L.marker(
+        
+        lieu.gps,
+        
+        {
+          
+          icon: numberIcon(lieu.n)
+          
+        }
+        
+      )
+      
+      .addTo(maps[index])
+      
+      .bindPopup(`
+
+<b>${lieu.nom}</b><br><br>
+
+<a class="maps-button"
+
+target="_blank"
+
+href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(lieu.nom+" Saint-Raphaël")}">
+
+Itinéraire Google Maps
+
+</a>
+
+`);
+    
+    markers[index][lieu.n] = marker;
+    
+  });
+  
+}
+
+ajouterAppartement(0);
+ajouterAppartement(1);
+ajouterAppartement(2);
+
+ajouterLieux(0, lieuxPied);
+ajouterLieux(1, lieuxVille);
+ajouterLieux(2, lieuxRegion);
+
+function focusMarker(carte, numero) {
+  
+  const map = maps[carte - 1];
+  
+  const marker = markers[carte - 1][numero];
+  
+  if (!marker) return;
+  
+  map.flyTo(
+    
+    marker.getLatLng(),
+    
+    map.getZoom(),
+    
+    {
+      
+      animate: true,
+      duration: 0.8
+      
+    }
+    
+  );
+  
+  setTimeout(() => {
+    
+    marker.openPopup();
+    
+  }, 400);
+  
+}
+
+maps.forEach(map=>{
+
+map.attributionControl.setPrefix("");
+
+map.on("load",()=>{
+
+map.invalidateSize();
 
 });
 
-card.addEventListener("touchend",()=>{
+});
+
+window.addEventListener("load",()=>{
 
 setTimeout(()=>{
 
-card.style.transform="scale(1)";
+maps.forEach(map=>{
 
-},120);
+map.invalidateSize();
 
 });
+
+},300);
+
+setTimeout(()=>{
+
+maps.forEach(map=>{
+
+map.invalidateSize();
+
+});
+
+},1000);
+
+});
+
+/************************************************
+EMPÊCHE LE ZOOM AU SCROLL
+************************************************/
+
+maps.forEach(map=>{
+
+map.scrollWheelZoom.disable();
+
+});
+
+/************************************************
+DOUBLE TAP MOBILE
+************************************************/
+
+maps.forEach(map=>{
+
+map.doubleClickZoom.enable();
+
+});
+
+/************************************************
+PINCER POUR ZOOMER
+************************************************/
+
+maps.forEach(map=>{
+
+map.touchZoom.enable();
+
+});
+
+/************************************************
+DÉPLACEMENT
+************************************************/
+
+maps.forEach(map=>{
+
+map.dragging.enable();
+
+});
+
+/************************************************
+ANIMATION D'OUVERTURE
+************************************************/
+
+document.querySelectorAll(".map-section").forEach((section,index)=>{
+
+section.style.opacity="0";
+
+section.style.transform="translateY(20px)";
+
+setTimeout(()=>{
+
+section.style.transition="all .5s ease";
+
+section.style.opacity="1";
+
+section.style.transform="translateY(0)";
+
+},150*index);
 
 });
 
